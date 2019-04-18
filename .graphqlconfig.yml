@@ -1,0 +1,18 @@
+projects:
+  PayLink:
+    schemaPath: src\graphql\schema.json
+    includes:
+      - src\graphql\**\*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        graphQLApiId: qzsawsn2vvcmtkpc4aez3n2fvm
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src\graphql
+        region: us-east-1
+        maxDepth: 3
+      endpoints:
+        prod: >-
+          https://5rrvzffskfgwvaifpldo5gh25y.appsync-api.us-east-1.amazonaws.com/graphql
