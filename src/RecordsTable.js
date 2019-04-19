@@ -140,7 +140,7 @@ export default class RecordsTable extends React.Component {
             </td>
             <td>
               <NumeralValue value={item.est_cancel_6} type={"%"} />
-            </td>{" "}
+            </td>
           </Fragment>
         ) : (
           <Fragment>

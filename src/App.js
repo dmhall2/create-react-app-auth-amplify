@@ -28,7 +28,6 @@ import { Connect } from "aws-amplify-react";
 import aws_exports from "./aws-exports";
 import * as queries from "./graphql/queries";
 import Records from "./Records";
-import testData from "./testData";
 
 Amplify.configure(aws_exports);
 
@@ -50,22 +49,23 @@ class RecordsLoader extends React.Component {
   }
 
   render() {
-    return <Records records={testData.data.getRecords} />;
-    // <Connect
-    //   query={graphqlOperation(queries.getRecords, {
-    //     make: this.props.make,
-    //     prizm: this.props.prizm,
-    //     agent: this.props.agent
-    //   })}
-    // >
-    //   {({ data, loading }) => {
-    //     if (loading) {
-    //       return <div>Loading...</div>;
-    //     }
-    //     if (!data.getRecords) return;
-    //     return <Records records={data.getRecords} />;
-    //   }}
-    // </Connect>
+    return (
+      <Connect
+        query={graphqlOperation(queries.getRecords, {
+          make: this.props.make,
+          prizm: this.props.prizm,
+          agent: this.props.agent
+        })}
+      >
+        {({ data, loading }) => {
+          if (loading) {
+            return <div>Loading...</div>;
+          }
+          if (!data || !data.getRecords) return;
+          return <Records records={data.getRecords} />;
+        }}
+      </Connect>
+    );
   }
 }
 
@@ -141,49 +141,51 @@ class App extends Component {
                         this.handleChange("agent", ev);
                       }}
                     >
-                      <option value="all">ALL</option>
-                      <option value="american-automotive-service-solutions">
+                      <option value="ALL">ALL</option>
+                      <option value="AMERICAN AUTOMOTIVE SERVICE SOLUTIONS">
                         AMERICAN AUTOMOTIVE SERVICE SOLUTIONS
                       </option>
-                      <option value="auto-assure">AUTO ASSURE LLC</option>
-                      <option value="automotive-product-consultants">
+                      <option value="AUTO ASSURE LLC">AUTO ASSURE LLC</option>
+                      <option value="AUTOMOTIVE PRODUCT CONSULTANTS">
                         AUTOMOTIVE PRODUCT CONSULTANTS
                       </option>
-                      <option value="carchex">CARCHEX</option>
-                      <option value="carchex-llc">CARCHEX LLC</option>
-                      <option value="carguardian-warranty">
+                      <option value="CARCHEX">CARCHEX</option>
+                      <option value="CARCHEX LLC">CARCHEX LLC</option>
+                      <option value="CARGUARDIAN WARRANTY LLC">
                         CARGUARDIAN WARRANTY LLC
                       </option>
-                      <option value="carshield">CARSHIELD</option>
-                      <option value="carshield-mtm">CARSHIELD - MTM</option>
-                      <option value="carshield-mtm2">CARSHIELD - MTM II</option>
-                      <option value="carsure">CARSURE</option>
-                      <option value="eleras-automotive-group">
+                      <option value="CARSHIELD">CARSHIELD</option>
+                      <option value="CARSHIELD -MTM">CARSHIELD - MTM</option>
+                      <option value="CARSHIELD - MTM II">
+                        CARSHIELD - MTM II
+                      </option>
+                      <option value="CARSURE">CARSURE</option>
+                      <option value="ELERAS AUTOMOTIVE GROUP">
                         ELERAS AUTOMOTIVE GROUP
                       </option>
-                      <option value="endurance-direct">ENDURANCE DIRECT</option>
-                      <option value="greenlight-auto-protection2">
+                      <option value="ENDURANCE DIRECT">ENDURANCE DIRECT</option>
+                      <option value="GREENLIGHT AUTO PROTECTION II">
                         GREENLIGHT AUTO PROTECTION II
                       </option>
-                      <option value="integrity-protection-group2">
+                      <option value="INTEGRITY PROTECTION GROUP II">
                         INTEGRITY PROTECTION GROUP II
                       </option>
-                      <option value="national-vehicle-protection-services">
+                      <option value="NATIONAL VEHICLE PROTECTION SERVICES">
                         NATIONAL VEHICLE PROTECTION SERVICES
                       </option>
-                      <option value="parlmer-administrative">
+                      <option value="PALMER ADMINISTRATIVE -PPAP">
                         PALMER ADMINISTRATIVE - PPAP
                       </option>
-                      <option value="repair-defense-network">
+                      <option value="REPAIR DEFENSE NETWORK">
                         REPAIR DEFENSE NETWORK
                       </option>
-                      <option value="sky-auto-protection">
+                      <option value="SKY AUTO PROTECTION">
                         SKY AUTO PROTECTION
                       </option>
-                      <option value="true-auto-protection">
+                      <option value="TRUE AUTO PROTECTION">
                         TRUE AUTO PROTECTION
                       </option>
-                      <option value="vehicle-assurance">
+                      <option value="VEHICLE ASSURANCE">
                         VEHICLE ASSURANCE
                       </option>
                     </Input>
@@ -199,27 +201,27 @@ class App extends Component {
                         this.handleChange("make", ev);
                       }}
                     >
-                      <option value="all">ALL</option>
-                      <option value="bmw">BMW</option>
-                      <option value="buick">BUICK</option>
-                      <option value="cadillac">CADILLAC</option>
-                      <option value="chevrolet">CHEVROLET</option>
-                      <option value="chrysler">CHRYSLER</option>
-                      <option value="dodge">DODGE</option>
-                      <option value="ford">FORD</option>
-                      <option value="gmc">GMC</option>
-                      <option value="honda">HONDA</option>
-                      <option value="hyundai">HYUNDAI</option>
-                      <option value="jeep">JEEP</option>
-                      <option value="kia">KIA</option>
-                      <option value="lexus">LEXUS</option>
-                      <option value="lincoln">LINCOLN</option>
-                      <option value="mazda">MAZDA</option>
-                      <option value="mercedes">MERCEDES BENZ</option>
-                      <option value="nissan">NISSAN</option>
-                      <option value="subaru">SUBARU</option>
-                      <option value="toyota">TOYOTA</option>
-                      <option value="volkswagen">VOLKSWAGEN</option>
+                      <option value="ALL">ALL</option>
+                      <option value="BMW">BMW</option>
+                      <option value="BUICK">BUICK</option>
+                      <option value="CADILLAC">CADILLAC</option>
+                      <option value="CHEVROLET">CHEVROLET</option>
+                      <option value="CHRYSLER">CHRYSLER</option>
+                      <option value="DODGE">DODGE</option>
+                      <option value="FORD">FORD</option>
+                      <option value="GMC">GMC</option>
+                      <option value="HONDA">HONDA</option>
+                      <option value="HYUNDAI">HYUNDAI</option>
+                      <option value="JEEP">JEEP</option>
+                      <option value="KIA">KIA</option>
+                      <option value="LEXUS">LEXUS</option>
+                      <option value="LINCOLN">LINCOLN</option>
+                      <option value="MAZDA">MAZDA</option>
+                      <option value="MERCEDES">MERCEDES BENZ</option>
+                      <option value="NISSAN">NISSAN</option>
+                      <option value="SUBARU">SUBARU</option>
+                      <option value="TOYOTA">TOYOTA</option>
+                      <option value="VOLKSWAGEN">VOLKSWAGEN</option>
                     </Input>
                   </FormGroup>
                   <FormGroup>

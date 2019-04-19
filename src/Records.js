@@ -9,7 +9,7 @@ export default class Records extends React.Component {
       <div>
         <Card className="chart-card">
           <CardHeader>
-            <span class="fw-600">Cancellations</span>
+            <span className="fw-600">Cancellations</span>
           </CardHeader>
           <CardBody>
             <RecordsChart records={this.props.records} />
@@ -17,7 +17,7 @@ export default class Records extends React.Component {
         </Card>
         <Card className="table-card">
           <CardHeader>
-            <span class="fw-600">Data</span>
+            <span className="fw-600">Data</span>
           </CardHeader>
           <CardBody>
             <RecordsTable records={this.props.records} />
