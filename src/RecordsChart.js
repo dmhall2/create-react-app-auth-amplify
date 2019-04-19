@@ -2,6 +2,17 @@ import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import HighchartsExporting from "highcharts/modules/exporting";
+import Decimal from "decimal.js";
+
+HighchartsExporting(Highcharts);
+
+function to100(value) {
+  return new Decimal(value)
+    .times(100)
+    .toDecimalPlaces(1)
+    .toNumber();
+}
 
 export default class Records extends React.Component {
   render() {
@@ -12,44 +23,105 @@ export default class Records extends React.Component {
     const estimateSeries = {
       name: estimate.name,
       data: [
-        estimate.est_cancel_0,
-        estimate.est_cancel_1,
-        estimate.est_cancel_2,
-        estimate.est_cancel_3,
-        estimate.est_cancel_4,
-        estimate.est_cancel_5,
-        estimate.est_cancel_6
-      ]
+        to100(estimate.est_cancel_0),
+        to100(estimate.est_cancel_1),
+        to100(estimate.est_cancel_2),
+        to100(estimate.est_cancel_3),
+        to100(estimate.est_cancel_4),
+        to100(estimate.est_cancel_5),
+        to100(estimate.est_cancel_6)
+      ],
+      dashStyle: "longdash"
     };
 
     const twelveMonthsSeries = {
       name: twelveMonths.name,
       data: [
-        twelveMonths.obs_cancel_0,
-        twelveMonths.obs_cancel_1,
-        twelveMonths.obs_cancel_2,
-        twelveMonths.obs_cancel_3,
-        twelveMonths.obs_cancel_4,
-        twelveMonths.obs_cancel_5,
-        twelveMonths.obs_cancel_6
+        to100(twelveMonths.obs_cancel_0),
+        to100(twelveMonths.obs_cancel_1),
+        to100(twelveMonths.obs_cancel_2),
+        to100(twelveMonths.obs_cancel_3),
+        to100(twelveMonths.obs_cancel_4),
+        to100(twelveMonths.obs_cancel_5),
+        to100(twelveMonths.obs_cancel_6)
       ]
     };
 
     const totalSeries = {
       name: total.name,
       data: [
-        total.obs_cancel_0,
-        total.obs_cancel_1,
-        total.obs_cancel_2,
-        total.obs_cancel_3,
-        total.obs_cancel_4,
-        total.obs_cancel_5,
-        total.obs_cancel_6
+        to100(total.obs_cancel_0),
+        to100(total.obs_cancel_1),
+        to100(total.obs_cancel_2),
+        to100(total.obs_cancel_3),
+        to100(total.obs_cancel_4),
+        to100(total.obs_cancel_5),
+        to100(total.obs_cancel_6)
       ]
     };
 
     let options = {
-      title: null,
+      chart: {
+        type: "spline",
+        style: {
+          fontFamily: "helvetica"
+        },
+        marginTop: 50
+      },
+      title: {
+        text: null,
+        align: "left",
+        style: { fontSize: "14px" }
+      },
+      yAxis: {
+        title: { text: "Cumulative Cancellation %" },
+        labels: {
+          formatter: function() {
+            return this.value + "%";
+          }
+        },
+        max: 100
+      },
+      xAxis: {
+        title: {
+          text: "Number of Payments"
+        },
+        gridLineWidth: 1,
+        tickInterval: 1
+      },
+      tooltip: {
+        headerFormat: "{point.x} pmts <br>",
+        valueDecimals: 1,
+        valueSuffix: "%"
+      },
+      credits: {
+        enabled: false
+      },
+      exporting: {
+        buttons: {
+          contextButton: {
+            enabled: false
+          },
+          exportButton: {
+            text: "Download",
+            // Use only the download related menu items from the default
+            // context button
+            menuItems: [
+              "downloadPNG",
+              "downloadJPEG",
+              "downloadPDF",
+              "downloadSVG"
+            ]
+          },
+          printButton: {
+            text: "Print",
+            onclick: function() {
+              this.print();
+            }
+          }
+        }
+      },
+      colors: ["#1F3D4D", "#33667F", "#52A3CC", "#688695", "8FB8CC", "#000"],
       series: [estimateSeries, twelveMonthsSeries, totalSeries]
     };
 

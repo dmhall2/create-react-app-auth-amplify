@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Table } from "reactstrap";
 
 import NumeralValue from "./NumeralValue";
 import YearMonth from "./YearMonth";
@@ -13,7 +14,9 @@ export default class RecordsTable extends React.Component {
 
     const estimateEntry = (
       <tr>
-        <td>{estimate.name}</td>
+        <td>
+          <span className="fw-600">{estimate.name}</span>
+        </td>
         <td>
           <NumeralValue value={estimate.records} type={"#"} />
         </td>
@@ -43,7 +46,9 @@ export default class RecordsTable extends React.Component {
 
     const twelveMonthsEntry = (
       <tr>
-        <td>{twelveMonths.name}</td>
+        <td>
+          <span className="fw-600">{twelveMonths.name}</span>
+        </td>
         <td>
           <NumeralValue value={twelveMonths.records} type={"#"} />
         </td>
@@ -73,7 +78,9 @@ export default class RecordsTable extends React.Component {
 
     const totalEntry = (
       <tr>
-        <td>{total.name}</td>
+        <td>
+          <span className="fw-600">{total.name}</span>
+        </td>
         <td>
           <NumeralValue value={total.records} type={"#"} />
         </td>
@@ -104,7 +111,9 @@ export default class RecordsTable extends React.Component {
     const monthsEntry = months.map((item, key) => (
       <tr>
         <td>
-          <YearMonth month={item.month} year={item.year} />
+          <span className="fw-600">
+            <YearMonth month={item.month} year={item.year} />
+          </span>
         </td>
         <td>
           <NumeralValue value={item.records} type={"#"} />
@@ -162,18 +171,41 @@ export default class RecordsTable extends React.Component {
     ));
 
     return (
-      <table>
+      <Table striped>
         <thead>
           <tr>
             <th />
-            <th>Count</th>
-            <th>0 pmts</th>
-            <th>1 pmt</th>
-            <th>2 pmts</th>
-            <th>3 pmts</th>
-            <th>4 pmts</th>
-            <th>5 pmts</th>
-            <th>6 pmts</th>
+            <th>
+              <span className="fw-600">Count</span>
+            </th>
+            <th>
+              <span className="fw-600">0</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">1</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">2</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">3</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">4</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">5</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
+            <th>
+              <span className="fw-600">6</span>{" "}
+              <span className="small text-muted">pmts</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -182,7 +214,7 @@ export default class RecordsTable extends React.Component {
           {totalEntry}
           {monthsEntry}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }
