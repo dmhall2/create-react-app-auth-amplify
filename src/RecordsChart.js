@@ -18,7 +18,7 @@ function to100(value) {
   }
 }
 
-export default class Records extends React.Component {
+export default class RecordsChart extends React.Component {
   render() {
     const estimate = this.props.records.estimate;
     const twelveMonths = this.props.records.twelveMonths;

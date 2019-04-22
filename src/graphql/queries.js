@@ -38,6 +38,7 @@ export const getRecords = `query GetRecords($agent: String, $prizm: Int, $make: 
       est_cancel_4_cnt
       est_cancel_5_cnt
       est_cancel_6_cnt
+      risk_score
     }
     total {
       name
@@ -74,6 +75,7 @@ export const getRecords = `query GetRecords($agent: String, $prizm: Int, $make: 
       est_cancel_4_cnt
       est_cancel_5_cnt
       est_cancel_6_cnt
+      risk_score
     }
     estimate {
       name
@@ -110,6 +112,7 @@ export const getRecords = `query GetRecords($agent: String, $prizm: Int, $make: 
       est_cancel_4_cnt
       est_cancel_5_cnt
       est_cancel_6_cnt
+      risk_score
     }
     twelveMonths {
       name
@@ -146,6 +149,7 @@ export const getRecords = `query GetRecords($agent: String, $prizm: Int, $make: 
       est_cancel_4_cnt
       est_cancel_5_cnt
       est_cancel_6_cnt
+      risk_score
     }
   }
 }
