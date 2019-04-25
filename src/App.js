@@ -350,7 +350,7 @@ class AppWithAuth extends Component {
         <SignIn />
         <ConfirmSignIn />
         <RequireNewPassword />
-        <SignUp />
+        {/*<SignUp />*/}
         <ConfirmSignUp />
         <VerifyContact />
         <ForgotPassword />
