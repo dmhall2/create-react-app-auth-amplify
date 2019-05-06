@@ -4,19 +4,9 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import HighchartsExporting from "highcharts/modules/exporting";
 import Decimal from "decimal.js";
+import to100 from "./to100.js";
 
 HighchartsExporting(Highcharts);
-
-function to100(value) {
-  if (value === null) {
-    return null;
-  } else {
-    return new Decimal(value)
-      .times(100)
-      .toDecimalPlaces(1)
-      .toNumber();
-  }
-}
 
 export default class RecordsChart extends React.Component {
   render() {

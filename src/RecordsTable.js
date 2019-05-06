@@ -5,6 +5,8 @@ import { CSVLink } from "react-csv";
 import NumeralValue from "./NumeralValue";
 import YearMonth from "./YearMonth";
 
+import to100 from "./to100.js";
+
 export default class RecordsTable extends React.Component {
   render() {
     const estimate = this.props.records.estimate;
@@ -15,6 +17,8 @@ export default class RecordsTable extends React.Component {
 
     const csvHeaders = [
       "Name",
+      "Relative Risk Score",
+      "Cancellation Score",
       "Records",
       "Obs Cancel 0",
       "Obs Cancel 1",
@@ -29,14 +33,15 @@ export default class RecordsTable extends React.Component {
       "Est Cancel 3",
       "Est Cancel 4",
       "Est Cancel 5",
-      "Est Cancel 6",
-      "Risk Score"
+      "Est Cancel 6"
     ];
     let csvData = [];
 
     let item = estimate;
     csvData.push([
       item.name,
+      to100(item.risk_score),
+      to100(item.est_cancel_6),
       item.records,
       item.obs_cancel_0,
       item.obs_cancel_1,
@@ -51,13 +56,14 @@ export default class RecordsTable extends React.Component {
       item.est_cancel_3,
       item.est_cancel_4,
       item.est_cancel_5,
-      item.est_cancel_6,
-      item.risk_score
+      item.est_cancel_6
     ]);
 
     item = twelveMonths;
     csvData.push([
       item.name,
+      to100(item.risk_score),
+      to100(item.est_cancel_6),
       item.records,
       item.obs_cancel_0,
       item.obs_cancel_1,
@@ -72,13 +78,14 @@ export default class RecordsTable extends React.Component {
       item.est_cancel_3,
       item.est_cancel_4,
       item.est_cancel_5,
-      item.est_cancel_6,
-      item.risk_score
+      item.est_cancel_6
     ]);
 
     item = total;
     csvData.push([
       item.name,
+      to100(item.risk_score),
+      to100(item.est_cancel_6),
       item.records,
       item.obs_cancel_0,
       item.obs_cancel_1,
@@ -93,8 +100,7 @@ export default class RecordsTable extends React.Component {
       item.est_cancel_3,
       item.est_cancel_4,
       item.est_cancel_5,
-      item.est_cancel_6,
-      item.risk_score
+      item.est_cancel_6
     ]);
 
     for (let m = 0; m < months.length; m++) {
@@ -102,6 +108,8 @@ export default class RecordsTable extends React.Component {
       item.name = YearMonth({ month: item.month, year: item.year });
       csvData.push([
         item.name,
+        to100(item.risk_score),
+        to100(item.est_cancel_6),
         item.records,
         item.obs_cancel_0,
         item.obs_cancel_1,
@@ -116,8 +124,7 @@ export default class RecordsTable extends React.Component {
         item.est_cancel_3,
         item.est_cancel_4,
         item.est_cancel_5,
-        item.est_cancel_6,
-        item.risk_score
+        item.est_cancel_6
       ]);
     }
 
@@ -125,6 +132,12 @@ export default class RecordsTable extends React.Component {
       <tr>
         <td>
           <span className="fw-600">{estimate.name}</span>
+        </td>
+        <td>
+          <NumeralValue value={estimate.risk_score} type={"score"} />
+        </td>
+        <td>
+          <NumeralValue value={estimate.est_cancel_6} type={"score"} />
         </td>
         <td>
           <NumeralValue value={estimate.records} type={"#"} />
@@ -150,9 +163,6 @@ export default class RecordsTable extends React.Component {
         <td>
           <NumeralValue value={estimate.est_cancel_6} type={"%"} />
         </td>
-        <td>
-          <NumeralValue value={estimate.risk_score} type={"score"} />
-        </td>
       </tr>
     );
 
@@ -160,6 +170,12 @@ export default class RecordsTable extends React.Component {
       <tr>
         <td>
           <span className="fw-600">{twelveMonths.name}</span>
+        </td>
+        <td>
+          <NumeralValue value={twelveMonths.risk_score} type={"score"} />
+        </td>
+        <td>
+          <NumeralValue value={twelveMonths.est_cancel_6} type={"score"} />
         </td>
         <td>
           <NumeralValue value={twelveMonths.records} type={"#"} />
@@ -185,9 +201,6 @@ export default class RecordsTable extends React.Component {
         <td>
           <NumeralValue value={twelveMonths.obs_cancel_6} type={"%"} />
         </td>
-        <td>
-          <NumeralValue value={twelveMonths.risk_score} type={"score"} />
-        </td>
       </tr>
     );
 
@@ -195,6 +208,12 @@ export default class RecordsTable extends React.Component {
       <tr>
         <td>
           <span className="fw-600">{total.name}</span>
+        </td>
+        <td>
+          <NumeralValue value={total.risk_score} type={"score"} />
+        </td>
+        <td>
+          <NumeralValue value={total.est_cancel_6} type={"score"} />
         </td>
         <td>
           <NumeralValue value={total.records} type={"#"} />
@@ -220,9 +239,6 @@ export default class RecordsTable extends React.Component {
         <td>
           <NumeralValue value={total.obs_cancel_6} type={"%"} />
         </td>
-        <td>
-          <NumeralValue value={total.risk_score} type={"score"} />
-        </td>
       </tr>
     );
 
@@ -232,6 +248,12 @@ export default class RecordsTable extends React.Component {
           <span className="fw-600">
             <YearMonth month={item.month} year={item.year} />
           </span>
+        </td>
+        <td>
+          <NumeralValue value={item.risk_score} type={"score"} />
+        </td>
+        <td>
+          <NumeralValue value={item.est_cancel_6} type={"score"} />
         </td>
         <td>
           <NumeralValue value={item.records} type={"#"} />
@@ -259,9 +281,6 @@ export default class RecordsTable extends React.Component {
             <td>
               <NumeralValue value={item.est_cancel_6} type={"%"} />
             </td>
-            <td>
-              <NumeralValue value={item.risk_score} type={"score"} />
-            </td>
           </Fragment>
         ) : (
           <Fragment>
@@ -286,9 +305,6 @@ export default class RecordsTable extends React.Component {
             <td>
               <NumeralValue value={item.obs_cancel_6} type={"%"} />
             </td>
-            <td>
-              <NumeralValue value={item.risk_score} type={"score"} />
-            </td>
           </Fragment>
         )}
       </tr>
@@ -305,6 +321,12 @@ export default class RecordsTable extends React.Component {
           <thead>
             <tr>
               <th />
+              <th>
+                <span className="fw-600">Relative Risk Score</span>{" "}
+              </th>
+              <th>
+                <span className="fw-600">Cancellation Score</span>{" "}
+              </th>
               <th>
                 <span className="fw-600">Count</span>
               </th>
@@ -335,9 +357,6 @@ export default class RecordsTable extends React.Component {
               <th>
                 <span className="fw-600">6</span>{" "}
                 <span className="small text-muted">pmts</span>
-              </th>
-              <th>
-                <span className="fw-600">Risk Score</span>{" "}
               </th>
             </tr>
           </thead>

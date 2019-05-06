@@ -5,40 +5,51 @@ import HighchartsReact from "highcharts-react-official";
 import HighchartsExporting from "highcharts/modules/exporting";
 import Decimal from "decimal.js";
 
-HighchartsExporting(Highcharts);
+import to100 from "./to100.js";
 
-function to100(value) {
-  if (value === null) {
-    return null;
-  } else {
-    return new Decimal(value)
-      .times(100)
-      .toDecimalPlaces(0)
-      .toNumber();
-  }
-}
+HighchartsExporting(Highcharts);
 
 export default class RiskChart extends React.Component {
   render() {
     const months = this.props.records.months;
-    let monthsData = [];
-    let dateSeries = [];
+    let riskData = [];
+    let cancellationData = [];
+    let actualData = [];
 
     for (let m = months.length - 1; m >= 0; m--) {
       const month = months[m];
-
       if (month.year >= 2016) {
-        console.log(new Date(month.year, month.month - 1, 1));
-        monthsData.push([
+        riskData.push([
           new Date(month.year, month.month - 1, 1).getTime(),
           to100(month.risk_score)
         ]);
+        cancellationData.push([
+          new Date(month.year, month.month - 1, 1).getTime(),
+          to100(month.est_cancel_6)
+        ]);
+
+        if (!month.estimate) {
+          actualData.push([
+            new Date(month.year, month.month - 1, 1).getTime(),
+            to100(month.obs_cancel_6)
+          ]);
+        }
       }
     }
 
-    const monthsSeries = {
-      name: "Risk Score",
-      data: monthsData
+    const riskSeries = {
+      name: "Relative Risk Score",
+      data: riskData
+    };
+
+    const cancellationSeries = {
+      name: "Cancellation Score",
+      data: cancellationData
+    };
+
+    const actualSeries = {
+      name: "Actual Payment 6 Cancel",
+      data: actualData
     };
 
     let options = {
@@ -55,7 +66,7 @@ export default class RiskChart extends React.Component {
         style: { fontSize: "14px" }
       },
       yAxis: {
-        title: { text: "Risk Score" },
+        title: { text: "Score" },
         max: 100
       },
       xAxis: {
@@ -96,8 +107,8 @@ export default class RiskChart extends React.Component {
           }
         }
       },
-      colors: ["#1F3D4D"],
-      series: [monthsSeries]
+      colors: ["#1F3D4D", "#33667F", "#52A3CC"],
+      series: [riskSeries, cancellationSeries, actualSeries]
     };
 
     return <HighchartsReact highcharts={Highcharts} options={options} />;

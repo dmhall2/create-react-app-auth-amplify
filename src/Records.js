@@ -18,7 +18,7 @@ export default class Records extends React.Component {
         </Card>
         <Card className="chart-card">
           <CardHeader>
-            <span className="fw-600">Cancellations</span>
+            <span className="fw-600">Cancellation Curves</span>
           </CardHeader>
           <CardBody>
             <RecordsChart records={this.props.records} />
